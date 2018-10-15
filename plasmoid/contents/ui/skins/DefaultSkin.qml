@@ -262,5 +262,39 @@ BaseSkin {
             Layout.preferredWidth: implicitWidth
             Layout.maximumHeight: implicitHeight
         }
+
+        Rectangle {
+            color: "white"
+
+            Layout.columnSpan: 4
+            Layout.fillWidth: true
+            Layout.minimumHeight: 3 * units.devicePixelRatio
+            Layout.maximumHeight: 3 * units.devicePixelRatio
+            Layout.preferredHeight: 3 * units.devicePixelRatio
+            Layout.topMargin: 5 * units.devicePixelRatio
+            Layout.rightMargin: 5 * units.devicePixelRatio
+        }
+
+        GpuWidget {
+            id: gpuWidget
+
+            usage: gpuUsage
+
+            temp: gpuTemp
+
+            memUsed: gpuMemUsed
+            memTotal: gpuMemTotal
+            memFree: gpuMemFree
+
+            Layout.columnSpan: 4
+            Layout.leftMargin: 5 * units.devicePixelRatio
+            Layout.topMargin: 5 * units.devicePixelRatio
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            Layout.minimumWidth: implicitWidth
+            Layout.minimumHeight: implicitHeight
+            Layout.preferredWidth: implicitWidth
+            Layout.preferredHeight: implicitHeight
+        }
     }
 }

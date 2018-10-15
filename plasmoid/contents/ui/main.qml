@@ -267,6 +267,43 @@ Rectangle {
         }
     }
 
+    PlasmaCore.DataSource {
+        id: nvidiaSource
+        engine: "executable"
+        interval: 1000
+
+        property alias delegate: loader.item
+
+        property string nvSource: 'nvidia-smi ' +
+            '--query-gpu=gpu_name,utilization.gpu,temperature.gpu,memory.total,memory.free,memory.used ' +
+            '--format=csv,noheader';
+
+        function parseOutput(s) {
+            var a = s.split(',');
+            delegate.gpuName = a[0];
+            delegate.gpuUsage = parseFloat(a[1]);
+            delegate.gpuTemp = parseFloat(a[2]);
+            delegate.gpuMemTotal = parseFloat(a[3]) / 1000;
+            delegate.gpuMemFree = parseFloat(a[4]) / 1000;
+            delegate.gpuMemUsed = parseFloat(a[5]) / 1000;
+        }
+
+        onSourceAdded: connectSource(source);
+
+        onNewData: {
+            if (data['exit code'] > 0) {
+                // FIXME
+            } else {
+                parseOutput(data.stdout);
+            }
+        }
+
+        Component.onCompleted: {
+            nvidiaSource.connectedSources.push(nvSource);
+        }
+
+    }
+
     Loader {
         id: loader
         anchors.fill: parent

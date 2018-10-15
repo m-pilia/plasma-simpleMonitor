@@ -46,6 +46,13 @@ Item {
 
     property int uptime
 
+    property string gpuName
+    property double gpuUsage
+    property double gpuTemp
+    property double gpuMemFree
+    property double gpuMemTotal
+    property double gpuMemUsed
+
     property int direction: confEngine.direction
     LayoutMirroring.enabled: direction === Qt.RightToLeft
     LayoutMirroring.childrenInherit: true
